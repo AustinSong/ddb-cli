@@ -6,11 +6,11 @@ import pydocumentdb.document_client as document_client
 
 # Creates the DocumentDB client connection.
 @click.group()
-@click.option('--host', help='Host')
-@click.option('--key', help='Key')
 @click.pass_context
-def main(ctx, host, key):
-    ctx.obj = document_client.DocumentClient(host, {'masterKey':key})
+def main(ctx):
+    click.echo("Creating client")
+    ctx.obj = document_client.DocumentClient(config.DDB_HOST,
+                                             {'masterKey':config.DDB_KEY})
 
 # Creates a database with the name as the id.  Utilizes the client from
 # main function.
@@ -18,14 +18,11 @@ def main(ctx, host, key):
 @click.argument('name')
 @click.pass_obj
 def createdb(ctx, name):
+    click.echo("Connecting to DocumentDB")
     client = ctx
+    click.echo("Client created")
     db = client.CreateDatabase({'id':name})
-    click.echo('created db with name: ' + name)
-
-# Test method for setup.py 
-@main.command()
-def cli():
-    click.echo('test')
+    click.echo('Created db with name: ' + name)
 
 if __name__=='__main__':
     main()

@@ -9,6 +9,6 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        pyddb=pyddb:cli
+        pyddb=pyddb:main
     ''',
 )
