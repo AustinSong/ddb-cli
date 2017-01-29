@@ -18,9 +18,14 @@ def main(ctx, host, key):
 @click.argument('name')
 @click.pass_obj
 def createdb(ctx, name):
-    client = ctx    
+    client = ctx
     db = client.CreateDatabase({'id':name})
     click.echo('created db with name: ' + name)
+
+# Test method for setup.py 
+@main.command()
+def cli():
+    click.echo('test')
 
 if __name__=='__main__':
     main()
